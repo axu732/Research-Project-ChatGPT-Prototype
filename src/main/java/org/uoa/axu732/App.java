@@ -39,6 +39,8 @@ public class App
                     .builder()
                     .model("gpt-3.5-turbo-0613")
                     .messages(messages)
+                    .temperature(0.2)
+                    .topP(0.5)
                     .n(1)
                     .maxTokens(100)
                     .logitBias(new HashMap<>())
