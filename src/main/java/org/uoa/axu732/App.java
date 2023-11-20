@@ -7,7 +7,6 @@ public class App {
     ChatGPT chatGPT = new ChatGPT();
     chatGPT.sendMessage();
 
-    Demo demo = new Demo();
-    System.out.println(demo.createVariableName("Guy", "Goon"));
+    System.out.println(Demo.createVariableName("Guy", "Goon"));
   }
 }
