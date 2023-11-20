@@ -37,6 +37,14 @@
     <version>3.25.6</version>
   </dependency>
 
+  <dependency>
+    <groupId>org.uoa.axu732</groupId>
+    <artifactId>TestLib1</artifactId>
+    <version>1.0.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/TestLib1-1.0.0.jar</systemPath>
+  </dependency>
+
   </dependencies>
 
   <build>
