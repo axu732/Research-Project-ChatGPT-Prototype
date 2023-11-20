@@ -12,7 +12,6 @@ import com.theokanning.openai.service.OpenAiService;
 
 public class ChatGPT {
      private List<ChatMessage> messages = new ArrayList<>();
-     private ChatCompletionRequest chatCompletionRequest;
      private OpenAiService service;
 
 
@@ -35,6 +34,7 @@ public class ChatGPT {
             messages.add(Msg);
 
             generateResponse();
+            scanner.close();
 
         }
 
