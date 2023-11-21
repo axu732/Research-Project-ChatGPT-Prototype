@@ -1,17 +1,11 @@
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.uoa.axu732.test_data.Demo;
 
-/** Unit test for simple App. */
 public class AppTest {
-  /** Rigorous Test :-) */
-  @Test
-  public void shouldAnswerWithTrue() {
-    assertTrue(true);
-  }
 
+  /* Test Case to try the demo class's createVariableName method */
   @Test
   public void testCreateVariableName() {
     String val1 = "Last";
