@@ -45,6 +45,12 @@
     <systemPath>${basedir}/lib/TestLib1-2.0.0.jar</systemPath>
   </dependency>
 
+  <dependency>
+  <groupId>com.google.guava</groupId>
+  <artifactId>guava</artifactId>
+  <version>23.1-jre</version>
+</dependency>
+
   </dependencies>
 
   <build>
