@@ -34,24 +34,41 @@ public class ChatGPT {
     scanner.close();
   }
 
-  public void sendConstructedMessage(
-      String currentLibraryMethod,
-      String previousLibraryMethod,
-      String testExpectation,
-      String testFailureMessage,
-      String clientCode) {
+  public void sendFirstMessage(String testExpectation, String testFailureMessage, String testCode) {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the previous version: ");
+    String previousVersion = scanner.nextLine();
+
+    System.out.print("Enter the current version: ");
+    String currentVersion = scanner.nextLine();
+
+    System.out.print("Enter the library name that was updated: ");
+    String libraryName = scanner.nextLine();
+
     StringBuilder sb = new StringBuilder();
-    sb.append("I have this new Library Method: " + currentLibraryMethod + "\n");
-    sb.append("Previously it was: " + previousLibraryMethod + "\n");
     sb.append(
-        "Now this test doesn't pass, saying it expects "
+        "I have a test failing after updating "
+            + libraryName
+            + " from "
+            + previousVersion
+            + " to "
+            + currentVersion
+            + ". ");
+    sb.append(
+        "It expected "
             + testExpectation
-            + " but it gets "
+            + " but failed with the message: "
             + testFailureMessage
-            + "\n");
-    sb.append(
-        "Adapt this client code to account for the changes in the library: " + clientCode + "\n");
-    sb.append("Give me only the code");
+            + ". ");
+    sb.append("This is the test code: " + testCode + ". ");
+    sb.append("Can you identify the issue between the expected and actual behavior?");
+    ChatMessage Msg = new ChatMessage(ChatMessageRole.USER.value(), sb.toString());
+    messages.add(Msg);
+  }
+
+  public void sendSecondMessage(String clientCode) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Can you adapt this code to fix the issue you found? " + clientCode);
     ChatMessage Msg = new ChatMessage(ChatMessageRole.USER.value(), sb.toString());
     messages.add(Msg);
 
