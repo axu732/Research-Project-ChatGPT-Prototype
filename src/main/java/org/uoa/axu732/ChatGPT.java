@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ChatGPT {
+public class ChatGPT extends Thread {
   private List<ChatMessage> messages = new ArrayList<>();
   private OpenAiService service;
 
@@ -34,7 +34,7 @@ public class ChatGPT {
     scanner.close();
   }
 
-  public void sendFirstMessage(String testExpectation, String testFailureMessage, String testCode) {
+  public void sendFirstMessage(String expectationMessage, String testCode) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the previous version: ");
     String previousVersion = scanner.nextLine();
@@ -54,16 +54,13 @@ public class ChatGPT {
             + " to "
             + currentVersion
             + ". ");
-    sb.append(
-        "It expected "
-            + testExpectation
-            + " but failed with the message: "
-            + testFailureMessage
-            + ". ");
+    sb.append("It " + expectationMessage);
     sb.append("This is the test code: " + testCode + ". ");
     sb.append("Can you identify the issue between the expected and actual behavior?");
     ChatMessage Msg = new ChatMessage(ChatMessageRole.USER.value(), sb.toString());
     messages.add(Msg);
+
+    run();
   }
 
   public void sendSecondMessage(String clientCode) {
@@ -72,6 +69,10 @@ public class ChatGPT {
     ChatMessage Msg = new ChatMessage(ChatMessageRole.USER.value(), sb.toString());
     messages.add(Msg);
 
+    run();
+  }
+
+  public void run() {
     generateResponse();
   }
 
