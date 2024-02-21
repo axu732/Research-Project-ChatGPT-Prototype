@@ -1,9 +1,11 @@
 package org.uoa.axu732;
 
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +17,8 @@ public class ChatGPT extends Thread {
 
   public ChatGPT() {
     String token = "";
-    this.service = new OpenAiService(token);
+    Duration timeout = Duration.ofSeconds(120);
+    this.service = new OpenAiService(token, timeout);
 
     ChatMessage systemMessage =
         new ChatMessage(
@@ -84,7 +87,6 @@ public class ChatGPT extends Thread {
             .temperature(0.2)
             .topP(0.5)
             .n(1)
-            .maxTokens(100)
             .logitBias(new HashMap<>())
             .build();
 
@@ -93,6 +95,11 @@ public class ChatGPT extends Thread {
 
     messages.add(responseMessage); // Add message to chat history
 
+    ChatCompletionResult chatCompletionResult = service.createChatCompletion(chatCompletionRequest);
+
+    Long tokenCost = chatCompletionResult.getUsage().getTotalTokens();
+
+    System.out.println("Token cost: " + tokenCost);
     System.out.println("Response: " + responseMessage.getContent());
   }
 }
