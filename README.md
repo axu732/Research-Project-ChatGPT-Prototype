@@ -6,7 +6,7 @@ java project library.
 
 # How to run
 
-In the ChatGPT class, add an access token from OpenAI in order to access ChatGPT. Then compile and run the application through maven by using `mvn exec:java`.
+You will first want to create a file named `apiKey.txt` in the same folder as `App.java`. There paste in an OpenAI API key. Then run the program via `mvn exec:java`
 
 
 For previous version type `1.0`.
