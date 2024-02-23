@@ -5,18 +5,22 @@ import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
+import java.io.BufferedReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ChatGPT extends Thread {
+public class ChatGPT {
   private List<ChatMessage> messages = new ArrayList<>();
   private OpenAiService service;
 
   public ChatGPT() {
-    String token = "";
+    String token = readAPIKey("src/main/java/org/uoa/axu732/apiKey.txt");
     Duration timeout = Duration.ofSeconds(120);
     this.service = new OpenAiService(token, timeout);
 
@@ -25,6 +29,24 @@ public class ChatGPT extends Thread {
             ChatMessageRole.SYSTEM.value(),
             "You are tasked with adapting client code for breaking changes.");
     messages.add(systemMessage);
+  }
+
+  private String readAPIKey(String string) {
+    try {
+      Path path = Paths.get(string);
+      if (Files.exists(path)) {
+        BufferedReader reader = Files.newBufferedReader(path);
+        String apiKey = reader.readLine();
+        reader.close();
+        return apiKey;
+      }
+    } catch (Exception e) {
+      System.out.println(
+          "There was an error reading the API key. Check you have a file named 'apiKey.txt' in the"
+              + " root directory.");
+      e.printStackTrace();
+    }
+    return null;
   }
 
   public void sendMessage() {
