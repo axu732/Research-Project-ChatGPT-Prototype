@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class ChatGPT {
+public class ChatGPT extends Thread {
   private List<ChatMessage> messages = new ArrayList<>();
   private OpenAiService service;
 
@@ -86,6 +86,7 @@ public class ChatGPT {
     messages.add(Msg);
 
     run();
+    service.shutdownExecutor();
   }
 
   public void sendSecondMessage(String clientCode) {
@@ -95,8 +96,10 @@ public class ChatGPT {
     messages.add(Msg);
 
     run();
+    service.shutdownExecutor();
   }
 
+  @Override
   public void run() {
     generateResponse();
   }
