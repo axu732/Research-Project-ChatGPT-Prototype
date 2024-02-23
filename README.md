@@ -7,3 +7,6 @@ java project library.
 # How to run
 
 In the ChatGPT class, add an access token from OpenAI in order to access ChatGPT. Then compile and run the application through maven by using `mvn exec:java`
+For previous version type `1.0`
+For current version type `2.0`
+For library name type `StringFormatter`
